@@ -1,6 +1,7 @@
 package agenda;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Agenda {
@@ -38,7 +39,7 @@ public class Agenda {
                 eventByTitle.add(e);
             }
         }
-    return eventByTitle; 
+        return eventByTitle; 
     }
     
     /**
@@ -47,7 +48,14 @@ public class Agenda {
      * @return vrai s’il y a de la place dans l'agenda pour cet événement
      */
     public boolean isFreeFor(Event e) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");        
+        LocalDateTime start = e.getStart();
+        LocalDateTime end = e.getEnd();
+        boolean isFree=false;
+        for (Event event: myAgenda){
+            if(start.isAfter(event.getEnd()) || end.isBefore(event.getStart())){
+                isFree=true;
+            }
+        }
+        return isFree;
     }
 }
