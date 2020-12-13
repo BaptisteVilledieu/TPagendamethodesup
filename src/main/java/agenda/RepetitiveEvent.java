@@ -4,11 +4,9 @@ import java.util.*;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 
-/**
- * Description : A repetitive Event
- */
 public class RepetitiveEvent extends Event {
-    /**
+   
+     /**
      * Constructs a repetitive event
      *
      * @param title the title of this event
@@ -21,10 +19,13 @@ public class RepetitiveEvent extends Event {
      * <LI>ChronoUnit.MONTHS for monthly repetitions</LI>
      * </UL>
      */
+    
+    ChronoUnit frequency;
+    public ArrayList<LocalDate> myExceptions = new ArrayList<>();
+
     public RepetitiveEvent(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
         super(title, start, duration);
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        this.frequency = frequency;
     }
 
     /**
@@ -33,17 +34,31 @@ public class RepetitiveEvent extends Event {
      * @param date the event will not occur at this date
      */
     public void addException(LocalDate date) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        myExceptions.add(date);
     }
 
-    /**
-     *
-     * @return the type of repetition
-     */
     public ChronoUnit getFrequency() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");    
+        return this.frequency;
     }
+        @Override
+    public boolean isInDay(LocalDate aDay) {
+        LocalDate d;
+        d = this.getStart().toLocalDate();
 
+        //Tant que la date en parametre est apres le debut de l'evenement, on ajoute une repeition a l'evenement
+        while (aDay.isAfter(d) || aDay.equals(d)) {
+            if (aDay.isEqual(d)) {
+                this.isInDay = true;
+            }
+            d = d.plus(1, frequency);
+        }
+        
+        //Tester si le jour ne porte pas d'exception
+        myExceptions.forEach((e) -> {
+            if (aDay.isEqual(e)) {
+                isInDay = false;
+            }
+        });
+        return isInDay;
+    }
 }
