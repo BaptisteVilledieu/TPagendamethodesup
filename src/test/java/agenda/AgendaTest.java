@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,13 +59,21 @@ public class AgendaTest {
     }
     
     @Test
-    public void testIsFree(){
+    public void testIsFreeFor(){
         assertFalse(agenda.isFreeFor(simple),"L'évènement ne doit pas être ajouté à l'agenda");
     }
     
     @Test
-    public void testIsFreeV2(){
+    public void testIsFreeForV2(){
         assertTrue(agenda.isFreeFor(simple2), "L'évènement doit être ajouté a l'agenda");
+    }
+    
+    @Test
+    public void testFindByTitle(){
+        List<Event> list = new ArrayList<>();
+        list.add(simple);
+        assertEquals(list,agenda.findByTitle("Simple event"),"Les évènements ne sont pas biens classés");
+        
     }
 
 
