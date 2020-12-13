@@ -7,6 +7,7 @@ public class Agenda {
 
     public ArrayList<Event> myAgenda = new ArrayList<>();
     public ArrayList<Event> eventsInDay = new ArrayList<>();
+    public ArrayList<Event> eventByTitle = new ArrayList<>();
 
     public void addEvent(Event e) {
         myAgenda.add(e);
@@ -25,5 +26,28 @@ public class Agenda {
             }
         }
         return eventsInDay;
+    }
+        /**
+     * Trouver les événements de l'agenda en fonction de leur titre
+     * @param title le titre à rechercher
+     * @return les événements qui ont le même titre
+     */
+    public List<Event> findByTitle(String title) {
+        for (Event e : myAgenda){
+            if (e.getTitle().equals(title)){
+                eventByTitle.add(e);
+            }
+        }
+    return eventByTitle; 
+    }
+    
+    /**
+     * Déterminer s’il y a de la place dans l'agenda pour un événement
+     * @param e L'événement à tester (on se limitera aux événements simples)
+     * @return vrai s’il y a de la place dans l'agenda pour cet événement
+     */
+    public boolean isFreeFor(Event e) {
+        // TODO : implémenter cette méthode
+        throw new UnsupportedOperationException("Pas encore implémenté");        
     }
 }
